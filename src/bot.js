@@ -281,6 +281,11 @@ async function handleAudioUpload(ctx) {
 
     db.saveLecture(lectureData);
 
+    // حذف الملف الصوتي المحلي بعد تحليله بنجاح لتوفير مساحة الـ 512MB
+    setTimeout(() => {
+      fs.unlink(localFilePath, () => {});
+    }, 15000);
+
     await ctx.api.editMessageText(
       ctx.chat.id,
       statusMsg.message_id,
@@ -385,6 +390,11 @@ bot.callbackQuery(/^create_pdf_(.+)_(ar|en|mix)$/, async (ctx) => {
       reply_markup: getLectureActionKeyboard(lectureId),
       parse_mode: 'Markdown',
     });
+
+    // تنظيف فوري لملف الـ PDF المؤقت للحفاظ على مساحة الـ 512MB
+    setTimeout(() => {
+      fs.unlink(pdfPath, () => {});
+    }, 20000);
   } catch (err) {
     console.error('PDF generation error:', err);
     await ctx.reply(`❌ فشل إنشاء ملف الـ PDF: ${err.message}`);
