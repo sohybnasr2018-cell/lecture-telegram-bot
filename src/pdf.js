@@ -652,7 +652,16 @@ async function generateLecturePdf(data, outputPath, options = {}) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
+  const possiblePaths = [
+    process.env.PUPPETEER_EXECUTABLE_PATH,
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/google-chrome',
+  ];
+
   const launchOptions = {
     headless: 'new',
     args: [
@@ -675,8 +684,12 @@ async function generateLecturePdf(data, outputPath, options = {}) {
       '--js-flags=--max-old-space-size=128',
     ],
   };
-  if (fs.existsSync(edgePath)) {
-    launchOptions.executablePath = edgePath;
+
+  for (const p of possiblePaths) {
+    if (p && fs.existsSync(p)) {
+      launchOptions.executablePath = p;
+      break;
+    }
   }
 
   const browser = await puppeteer.launch(launchOptions);

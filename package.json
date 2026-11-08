@@ -21,5 +21,11 @@
     "jszip": "^3.10.2",
     "puppeteer": "^25.16.0",
     "sql.js": "^1.15.2"
+  },
+  "allowScripts": {
+    "puppeteer": true,
+    "puppeteer@25.16.0": true,
+    "protobufjs": true,
+    "protobufjs@7.6.6": true
   }
 }
