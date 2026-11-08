@@ -4,30 +4,18 @@ echo ========================================================
 echo       رفع ملفات البوت إلى مستودع GitHub تلقائياً 🚀
 echo ========================================================
 echo.
-echo [1] افتح صفحة المستودع التي أنشأتها على موقع GitHub.
-echo [2] انسخ الرابط الذي يظهر لك (ينتهي بـ .git).
+echo [*] المستودع المستهدف: sohybnasr2018-cell/lecture-telegram-bot
 echo.
-set /p REPO_URL="الصق رابط المستودع هنا واضغط Enter: "
 
-if "%REPO_URL%"=="" (
-    echo [!] لم يتم إدخال الرابط. حاول مرة أخرى.
-    pause
-    exit /b
-)
-
-echo.
-echo [*] جاري ربط المجلد بالمستودع...
-git remote remove origin 2>nul
-git remote add origin %REPO_URL%
-
-echo [*] جاري إعداد الفرع الرئيسي...
 git branch -M main
+git remote remove origin 2>nul
+git remote add origin https://github.com/sohybnasr2018-cell/lecture-telegram-bot.git
 
-echo [*] جاري رفع الملفات إلى GitHub...
+echo [*] جاري رفع الملفات إلى الفرع main في GitHub...
 git push -u origin main
 
 echo.
 echo ========================================================
-echo   ✅ تم الانتهاء! افتح صفحة GitHub للتأكد من وجود الملفات.
+echo   إذا ظهر لك خطأ في الرفع، يرجى تسجيل الدخول إلى GitHub
 echo ========================================================
 pause
