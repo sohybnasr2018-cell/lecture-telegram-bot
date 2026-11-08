@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/bot.js",
+    "start": "node index.js",
     "dev": "node --watch src/bot.js",
     "test": "node tests/test_all.js"
   },
