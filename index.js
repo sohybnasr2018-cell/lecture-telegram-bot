@@ -1,2 +1,7 @@
 // نقطة الدخول الرئيسية للبوت في السيرفرات السحابية
-require('./src/bot.js');
+const { startBot } = require('./src/bot.js');
+
+startBot().catch((err) => {
+  console.error('Fatal bot launch error:', err);
+  process.exit(1);
+});
